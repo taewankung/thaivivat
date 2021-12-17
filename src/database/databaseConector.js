@@ -5,7 +5,6 @@ import config from "../config";
 
 export default async () => {
     const dbURL = url.parse(config.databaseURL);
-
     const dbType = dbURL.protocol.substr(0, dbURL.protocol.length - 1);
     const user = dbURL.auth.substr(0, dbURL.auth.indexOf(":"));
     const pass = dbURL.auth.substr(dbURL.auth.indexOf(":") + 1, dbURL.auth.length);
@@ -19,7 +18,7 @@ export default async () => {
             username: user,
             password: pass,
             database: db,
-            entities: [__dirname + "/../models/*.js"],
+            entities: [__dirname + "/../model/*.js"],
             synchronize: false,
             extra:{
                 "connectionLimit": 3
@@ -29,6 +28,7 @@ export default async () => {
         return connection;
     }
     catch(error){
+      console.log("error conection.")
         console.log(error);
     }
 };

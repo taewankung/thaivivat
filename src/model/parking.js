@@ -1,15 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, Unique, BeforeInsert} from "typeorm";
+
 @Entity("parkingIot")
-@Unique("uniqueName", ["name"])
+@Unique("UNIQUE_PARKING_IOT", ["mac"])
 class ParkingIot {
     @PrimaryGeneratedColumn()
     id
 
-    @Column("text", {"name": "name"})
+    @Column("char", {"name": "name", length: 255})
     name
 
-    @Column("text", {"name": "status", "default":"empty"})
-    status
+    @Column("text")
+    status="EMPTY"
 
+    @Column("varchar", {length: 30})
+    mac
 }
 export default ParkingIot;
