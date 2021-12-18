@@ -4,6 +4,12 @@ export default async (req, repoDict) => {
         const ticketRepo = repoDict["ticketRepo"];
         const slotParkingIotRepo = repoDict["slotParkingIotRepo"];
         let {plateNumber, size} = req.body;
+        const ticketList = await ticketRepo.find({
+            relations: ["allocatedParkSlot"]
+        });
+        // console.log(ticketList);
+        const allocatedParkSlotListId = ticketList.map((ticket)=>(ticket.allocatedParkSlot.id));
+
         const ticket = new Ticket();
         ticket.plateNumber = plateNumber;
         ticket.size = size;
@@ -13,7 +19,7 @@ export default async (req, repoDict) => {
         });
         // console.log(slots);
         const emptySlot = await slots.find((slot)=>(
-            slot.parkingIot.status === "EMPTY"
+            slot.parkingIot.status === "EMPTY" && !(slot.id in allocatedParkSlotListId)
         ));
 
         if(emptySlot) {
