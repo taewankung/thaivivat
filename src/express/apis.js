@@ -9,6 +9,7 @@ const apis = (app, repoDict) => {
     const ticketRepo = repoDict["ticketRepo"];
 
     app.use("/", route);
+
     route.post("/create/parking", async (req, res) => {
         console.log("create parking iot");
         const {name, mac} = req.body;
@@ -77,16 +78,21 @@ const apis = (app, repoDict) => {
     // #5 It should provide us with api to get registration plate number list by car size
     route.get("/registation/plateNumberList/:carSize", async (req, res) => {
         const {carSize} = req.params;
-        const parkingIot = await parkingIotRepo.find({
-            name: carSize
+        const tickets = await ticketRepo.find({
+            carSize: carSize
         });
-        const result = parkingIot.map((parking)=>(parking.allocated))
-        res.send(parkingIot);
+        const result = tickets.map((tickets)=>(tickets.plateNumber))
+        res.send(result);
     });
 
     // #6 It should provide us with api to get registration allocated slot number list by car size
     route.get("/registation/allocated/:carSize", async (req, res) => {
-        res.send("registation");
+        const {carSize} = req.params;
+        const tickets = await ticketRepo.find({
+            carSize: carSize
+        });
+        const result = tickets.map((tickets)=>(tickets.allocated))
+        res.send(result);
     });
 }
 

@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: returner
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "8889:3306"
+    volumes:
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - dbdata:/var/lib/mysql
+
+  parkingIot:
+    image: interview_iot:latest
+    container_name: parkingIot
+    links:
+      - db
+    entrypoint: ["yarn", "migrateAndRunDocker"]
+    environment:
+      DATABASE_URL: mysql://root:1234@host.docker.internal:8889/parkingIOT
+      port: 3000
+      DATABASE_ORM_USER: root
+      DATABASE_ORM_HOST: host.docker.internal
+      DATABASE_USER: root
+      DATABASE_ORM_PORT: 8889
+      DATABASE_ORM_PASSWORD: 1234
+      DATABASE_ORM: parkingIOT
+    ports:
+      - 6034:3000
+
+
+volumes:
+  dbdata:
