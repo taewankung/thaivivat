@@ -9,5 +9,6 @@ if (process.env.NODE_ENV === "development") {
 
 export default {
     databaseURL: process.env.DATABASE_URL || "mysql://root:@127.0.0.1:7777/parkingIOT",
+    databaseTestURL: process.env.TEST_DATABASE_URL || "mysql://root:@127.0.0.1:7777/testParkingIOT",
     port: 3000
 };

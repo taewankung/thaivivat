@@ -15,5 +15,7 @@ class SlotParkingIot {
     @OneToOne(() => ParkingIot)
     @JoinColumn()
     parkingIot
+
+
 }
 export default SlotParkingIot;
