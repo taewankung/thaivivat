@@ -5,11 +5,10 @@ Requirement:
 * typeorm-cli
 * babel
 
-Install:
+setUp:
 ---
 ```
 yarn install
-docker pull mysql
 ```
 
 enviroment:
