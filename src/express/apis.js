@@ -23,6 +23,7 @@ const apis = (app, repoDict) => {
 
     app.use("/", route);
     // app.get("/helo", route);
+    // #1: It should provide us with api to create parking lot
     route.post("/create/parkingIot", async (req, res) => {
         await createParkingIot(req, repoDict);
         res.send("create parking iot");
@@ -77,7 +78,7 @@ const apis = (app, repoDict) => {
     });
 
     // #5 It should provide us with api to get registration plate number list by car size
-    route.get("/registation/plateNumberList/:carSize",
+    route.get("/registration/plateNumberList/:carSize",
         async (req, res) => {
         const plateNumberList = await getPlateNumberListBySized(req, repoDict);
         res.send(plateNumberList);
@@ -85,7 +86,7 @@ const apis = (app, repoDict) => {
     );
 
     // #6 It should provide us with api to get registration allocated slot number list by car size
-    route.get("/registation/allocated/:carSize", async (req, res) => {
+    route.get("/registration/allocated/:carSize", async (req, res) => {
         const allocatedList = await allocatedListBySize(req, repoDict);
         res.send(allocatedList);
     });

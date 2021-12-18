@@ -23,6 +23,7 @@ services:
     entrypoint: ["yarn", "migrateAndRunDocker"]
     environment:
       DATABASE_URL: mysql://root:1234@host.docker.internal:8889/parkingIOT
+      TEST_DATABASE_URL: mysql://root:1234@host.docker.internal:8889/testParkingIOT
       port: 3000
       DATABASE_ORM_USER: root
       DATABASE_ORM_HOST: host.docker.internal
