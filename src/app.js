@@ -5,6 +5,7 @@ import expressLoader from "./express/expressLoader";
 import {createConnection, Connection, getRepository} from "typeorm";
 import ParkingIot from "./model/parking";
 import Ticket from "./model/ticket";
+import SlotParkingIot from "./model/slotParkingIot";
 import connection from "./database/databaseConector";
 import config from "./config"
 
@@ -14,9 +15,11 @@ const ServerApp = async () => {
 
      const parkingIotRepo = getRepository(ParkingIot);
      const ticketRepo = getRepository(Ticket);
+     const slotParkingIotRepo = getRepository(SlotParkingIot);
      const repoDict = {
           "parkingIotRepo": parkingIotRepo,
-          "ticketRepo": ticketRepo
+          "ticketRepo": ticketRepo,
+          "slotParkingIotRepo": slotParkingIotRepo
      }
      expressLoader(app, repoDict);
      app.listen(config.port, () => console.log(`${Date(Date.now()).toString()} parkingIOT listening on port ${config.port}!`));

@@ -1,6 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, Unique} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, Unique, OneToOne, JoinColumn} from "typeorm";
+import SlotParkingIot from "./slotParkingIot";
 @Entity()
-@Unique("UNIQUE_TICKET", ["plateNumber"])
+
 class Ticket {
     @PrimaryGeneratedColumn()
     id
@@ -11,7 +12,8 @@ class Ticket {
     @Column("text", {"name": "size"})
     size
 
-    @Column("integer", {"name": "allocatedParkSlot"})
+    @OneToOne(() => SlotParkingIot)
+    @JoinColumn()
     allocatedParkSlot
 
 }
